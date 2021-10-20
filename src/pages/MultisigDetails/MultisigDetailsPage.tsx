@@ -334,8 +334,6 @@ const MultisigDetailsPage = () => {
     return <Redirect to="/multisig" />;
   }
 
-  console.log("---multisigBalance", multisigBalance.toString());
-
   return (
     <MultisigDetailsContext.Provider
       value={{ quorumSize, totalBoardMembers, isProposer, multisigBalance }}
