@@ -1,5 +1,5 @@
 import React from 'react';
-import { denominate } from '@elrondnetwork/dapp-core';
+import { operations } from '@elrondnetwork/dapp-utils';
 import { Ui } from '@elrondnetwork/dapp-utils';
 import { Address, BinaryCodec } from '@elrondnetwork/erdjs/out';
 import {
@@ -18,6 +18,7 @@ import { MultisigAction } from './MultisigAction';
 
 import { MultisigActionType } from './MultisigActionType';
 import { multisigContractFunctionNames } from './multisigFunctionNames';
+import { denomination } from '../config';
 
 export class MultisigSmartContractCall extends MultisigAction {
   address: Address;
@@ -124,11 +125,11 @@ export class MultisigSmartContractCall extends MultisigAction {
       .decodeTopLevel<BigUIntValue>(this.args[1].valueOf(), new BigUIntType())
       .valueOf();
 
-    const amount = denominate({
-      input: String(input),
+    const amount = operations.denominate({
+      input: String(input.toFixed()),
+      denomination,
       decimals,
-      showLastNonZeroDecimal: false,
-      denomination: decimals
+      showLastNonZeroDecimal: true
     });
 
     return `${i18next.t('Identifier')}: ${this.getIdentifier()}, ${i18next.t(
